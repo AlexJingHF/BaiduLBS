@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BaiduLBS</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Hello Biadu Map!</string>
     <string name="action_settings">Settings</string>
+    <string name="gps">GPS定位</string>
 </resources>

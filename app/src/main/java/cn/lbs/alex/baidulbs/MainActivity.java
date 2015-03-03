@@ -2,16 +2,26 @@ package cn.lbs.alex.baidulbs;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.MapView;
+
+import cn.lbs.alex.baidulbs.location.GPSSever;
+
 
 public class MainActivity extends ActionBarActivity {
-
+    private static final String TAG = "MainActivity";
+    private MapView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SDKInitializer.initialize(getApplicationContext());
+
         setContentView(R.layout.activity_main);
+        mapView = (MapView) findViewById(R.id.map);
     }
 
 
@@ -30,10 +40,36 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        Log.d(TAG,"onOptionsItemSelected");
+
+        switch (id){
+            case R.id.action_settings:
+                break;
+            case R.id.action_gps:
+                GPSSever gpsSever = new GPSSever(MainActivity.this);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+
 }
